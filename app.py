@@ -14,7 +14,7 @@ from matplotlib.figure import Figure
 
 # Set page configuration
 st.set_page_config(
-    page_title="Visual Analytics Test 1",
+    page_title="Visual Analytics and Communication Test 1",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -74,11 +74,8 @@ if page == "Home":
     """)
     
     # Display the assignment details
-    st.markdown("## Test 1 Instructions")
     st.markdown("""
     **Visual Analytics and Communication**
-
-    In every problem, interpretation/analysis will be considered more important than the code.
 
     ### Problem 1
     Select one major airport from the U.S. East Coast (e.g., JFK, ATL, MIA, BOS, PHL). Using available flight route data:
