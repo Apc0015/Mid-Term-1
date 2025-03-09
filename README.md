@@ -1,1 +1,1 @@
-# Mid-Term-1
+Visual Analytics and Communication
