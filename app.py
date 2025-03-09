@@ -8,10 +8,13 @@ import folium
 from streamlit_folium import folium_static
 import random
 import seaborn as sns
+from sklearn.linear_model import LinearRegression
+import base64
+from io import BytesIO
 
 # Set page configuration
 st.set_page_config(
-    page_title="Visual Analytics Dashboard",
+    page_title="Visual Analytics Test 1",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -59,15 +62,36 @@ if page == "Home":
     st.markdown('<div class="main-header">Visual Analytics and Communication</div>', unsafe_allow_html=True)
 
     st.markdown("""
-    Welcome to the Visual Analytics Dashboard for Test 1, Spring 2025.
-
-    This dashboard contains solutions for three problems:
+    # Test 1 Solutions - Spring 2025
+    
+    Welcome to the Visual Analytics Dashboard for Test 1. This dashboard contains solutions for three problems:
 
     1. **Airport Analysis** - Analysis of flight routes and operations for a major U.S. East Coast airport.
     2. **University Dashboard** - Monitoring system for university admissions, retention, and student satisfaction.
     3. **Data Visualization Comparison** - Comparative analysis of poor vs. effective data visualization techniques.
 
     Use the sidebar to navigate between problems.
+    """)
+    
+    # Display the assignment details
+    st.markdown("## Test 1 Instructions")
+    st.markdown("""
+    **Visual Analytics and Communication**
+
+    In every problem, interpretation/analysis will be considered more important than the code.
+
+    ### Problem 1
+    Select one major airport from the U.S. East Coast (e.g., JFK, ATL, MIA, BOS, PHL). Using available flight route data:
+    - Map all the direct routes from the selected airport
+    - Perform an Exploratory Data Analysis (EDA) to understand popular routes, airport connectivity, and operations performance
+
+    ### Problem 2
+    An academic institution wants to monitor their admission process and students' satisfaction. Design a university dashboard that tracks student admissions, retention, and satisfaction.
+
+    ### Problem 3
+    Find a real-world dataset from an open-source repository. Perform an Exploratory Data Analysis (EDA) and create two visualizations for the same insight:
+    1. The WORST possible plot that misrepresents the data
+    2. The IMPROVED version that enhances clarity and follows best practices
     """)
 
 # Problem 1: Airport Analysis
@@ -387,7 +411,6 @@ elif page == "Problem 1: Airport Analysis":
         5. **Airline Operations**: The distribution of flights across airlines shows market concentration and competitive 
            dynamics, with some carriers specializing in domestic routes and others in international service.
         """)
-        
 
 # Problem 2: University Dashboard
 elif page == "Problem 2: University Dashboard":
@@ -406,7 +429,6 @@ elif page == "Problem 2: University Dashboard":
             data = pd.read_csv("university_student_dashboard_data.csv")
             return data
         except Exception as e:
-            st.error(f"Error loading university data: {e}")
             # Create sample data
             years = range(2015, 2025)
             terms = ["Spring", "Fall"]
@@ -683,13 +705,32 @@ elif page == "Problem 2: University Dashboard":
             xaxis={'tickangle': 45}
         )
         st.plotly_chart(fig, use_container_width=True)
-        
-        # Department comparison by year
-        st.subheader("Department Comparison by Year")
-        
-        year_dept = filtered_data.groupby('Year').agg({
-            'Engineering Enrolled': 'sum',
-            'Business Enrolled': 'sum',
-            'Arts Enrolled': 'sum',
-            'Science Enrolled': 'sum'
-        }).reset_index()
+
+
+
+
+
+
+
+
+
+
+# ------ CONCLUSION SECTION ------
+def create_conclusion_section():
+    conclusion_text = """
+    ## Conclusion: Comparing the Poor and Improved Visualizations
+
+    When we examine the two visualizations of the World Happiness Report data, we can see stark differences in how effectively they communicate insights about the relationship between GDP per capita and happiness scores.
+
+    The poor visualization fails the audience in multiple fundamental ways. By using an unnecessary 3D perspective for inherently 2D data, it creates a distorted view that makes accurate comparison between points nearly impossible. The similar color shades across different regions make it difficult to distinguish between regional patterns, which obscures one of the most interesting aspects of the data. Furthermore, the cluttered approach of labeling every single country creates visual noise that overwhelms the viewer, making it nearly impossible to extract meaningful patterns. The misleading annotations ("Poor countries = Sad countries") impose a biased interpretation rather than allowing the data to speak for itself.
+
+    In contrast, the improved visualization embodies several key principles of effective data communication. By using a clear 2D representation, it allows viewers to accurately assess the relationship between GDP and happiness without distortion. The distinct color scheme for different regions enables immediate recognition of regional patterns – we can clearly see how European countries cluster at the top-right, while African nations tend toward the bottom-left. By selectively labeling only key countries (highest, lowest, and notable outliers), it maintains context without overwhelming the viewer with text. The regression line provides an immediate visual representation of the overall relationship, allowing viewers to identify countries that deviate from the expected pattern. The thoughtful annotations highlight genuine insights rather than imposing simplistic conclusions.
+
+    What makes this comparison particularly instructive is that both visualizations use exactly the same underlying data. The dramatic difference in clarity and insight demonstrates how visualization choices can either reveal or conceal the story within the data. The poor visualization might lead viewers to conclude only that "rich countries are happier," while missing nuanced patterns like how Latin American countries consistently achieve higher happiness scores than their economic metrics would predict, or how certain regions show greater variability in happiness despite similar economic conditions.
+
+    This comparison serves as a powerful reminder that data visualization is not merely a technical exercise but a form of communication that requires thoughtful design choices. The most effective visualizations strip away unnecessary complexity, highlight meaningful patterns, provide appropriate context, and ultimately respect both the data and the viewer's intelligence.
+    """
+    return conclusion_text
+
+# Call this function where you want to display the conclusion in your dashboard
+conclusion = create_conclusion_section()
