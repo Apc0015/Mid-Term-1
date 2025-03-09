@@ -704,7 +704,94 @@ elif page == "Problem 2: University Dashboard":
             xaxis_title='Year-Term',
             yaxis_title='Number of Students',
             xaxis={'tickangle': 45}
-# This picks up where Problem 2 ends and completes Problem 3
+        )
+        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # Department comparison by year
+        st.subheader("Department Comparison by Year")
+        
+        year_dept = filtered_data.groupby('Year').agg({
+            'Engineering Enrolled': 'sum',
+            'Business Enrolled': 'sum',
+            'Arts Enrolled': 'sum',
+            'Science Enrolled': 'sum'
+        }).reset_index()
+        
+        # Prepare data for stacked bar chart
+        fig = go.Figure()
+        fig.add_trace(go.Bar(
+            x=year_dept['Year'],
+            y=year_dept['Engineering Enrolled'],
+            name='Engineering'
+        ))
+        fig.add_trace(go.Bar(
+            x=year_dept['Year'],
+            y=year_dept['Business Enrolled'],
+            name='Business'
+        ))
+        fig.add_trace(go.Bar(
+            x=year_dept['Year'],
+            y=year_dept['Arts Enrolled'],
+            name='Arts'
+        ))
+        fig.add_trace(go.Bar(
+            x=year_dept['Year'],
+            y=year_dept['Science Enrolled'],
+            name='Science'
+        ))
+        
+        fig.update_layout(
+            title='Enrollment by Department and Year',
+            xaxis_title='Year',
+            yaxis_title='Number of Students',
+            barmode='stack'
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Summary insights section
+    with st.expander("View University Dashboard Insights", expanded=False):
+        st.markdown("# University Dashboard Insights")
+        st.markdown("## Executive Summary")
+        st.markdown("""
+        This dashboard provides a comprehensive analysis of the university's admissions process, enrollment patterns, 
+        student retention, and satisfaction metrics. The insights reveal trends over time, differences between academic terms, 
+        and variations across academic departments.
+        
+        These findings can help university administrators make data-driven decisions about recruitment strategies, 
+        resource allocation, and student success initiatives.
+        """)
+        
+        st.markdown("## Key Findings")
+        st.markdown("""
+        1. **Admissions Trends**: The data shows an overall upward trend in applications, admissions, and enrollments over the analyzed period, 
+           indicating growing interest in the university.
+           
+        2. **Term Differences**: There are notable differences between Spring and Fall terms in terms of application volume, 
+           acceptance rates, and enrollment patterns, which suggests opportunities for term-specific strategies.
+           
+        3. **Retention and Satisfaction**: Student retention rates and satisfaction scores have improved gradually over time, 
+           potentially reflecting successful student success initiatives or improvements in academic programs.
+           
+        4. **Departmental Analysis**: Engineering consistently leads in enrollment numbers, followed by Business, Arts, and Science. 
+           Each department shows distinct enrollment patterns that may be influenced by industry trends, program reputation, or resources.
+           
+        5. **Yield Rate**: The percentage of admitted students who ultimately enroll varies across terms and years, 
+           indicating potential areas for improving conversion in the admissions funnel.
+        """)
+        
+        st.markdown("## Recommendations")
+        st.markdown("""
+        1. **Targeted Recruitment**: Develop department-specific recruitment strategies based on enrollment trends and capacity.
+        
+        2. **Term-Based Planning**: Adjust resources and support services to accommodate the different volumes and needs in Spring vs. Fall terms.
+        
+        3. **Satisfaction Drivers**: Conduct deeper analysis to identify factors contributing to student satisfaction and retention improvements.
+        
+        4. **Departmental Resources**: Allocate resources proportionally to departments based on enrollment trends and growth patterns.
+        
+        5. **Admissions Process Optimization**: Review the admissions funnel to identify stages where improvements could increase yield rates.
+        """)
 
 # Problem 3: Data Visualization Comparison
 elif page == "Problem 3: Data Visualization Comparison":
@@ -863,8 +950,8 @@ elif page == "Problem 3: Data Visualization Comparison":
     
     # Load the happiness data
     happiness_data = load_happiness_data()
-
-# Create tabs for different visualizations
+    
+    # Create tabs for different visualizations
     tab1, tab2, tab3, tab4 = st.tabs([
         "Poor Visualization", 
         "Improved Visualization", 
@@ -953,8 +1040,8 @@ elif page == "Problem 3: Data Visualization Comparison":
         buffer.seek(0)
         st.image(buffer, use_column_width=True)
         plt.close()
-
-with tab2:
+    
+    with tab2:
         st.markdown('<div class="sub-header">Improved Visualization Example</div>', unsafe_allow_html=True)
         
         st.markdown("""
@@ -1065,8 +1152,8 @@ with tab2:
         buffer.seek(0)
         st.image(buffer, use_column_width=True)
         plt.close()
-
-with tab3:
+    
+    with tab3:
         st.markdown('<div class="sub-header">Comparison & Analysis</div>', unsafe_allow_html=True)
         
         # Side-by-side comparison
@@ -1164,7 +1251,7 @@ with tab3:
         plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.savefig(buffer, format='png')
         buffer.seek(0)
-        st.image(buffer, use_container_width=True)
+        st.image(buffer, use_column_width=True)
         plt.close()
         
         # Analysis of the visualizations
@@ -1242,7 +1329,7 @@ with tab3:
         plt.tight_layout()
         plt.savefig(buffer, format='png')
         buffer.seek(0)
-        st.image(buffer, use_container_width=True)
+        st.image(buffer, use_column_width=True)
         plt.close()
         
         st.markdown("""
@@ -1250,8 +1337,8 @@ with tab3:
         Latin American countries, for example, tend to report higher happiness levels than their economic indicators would suggest, 
         which is often referred to as the "Latin American paradox" in happiness research.
         """)
-
-with tab4:
+    
+    with tab4:
         st.markdown('<div class="sub-header">Conclusion</div>', unsafe_allow_html=True)
         
         st.markdown("""
