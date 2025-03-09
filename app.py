@@ -388,20 +388,6 @@ elif page == "Problem 1: Airport Analysis":
            dynamics, with some carriers specializing in domestic routes and others in international service.
         """)
         
-        st.markdown("## Recommendations")
-        st.markdown("""
-        1. **Route Optimization**: Consider adding capacity to high-demand routes identified in the top destinations analysis, 
-           while evaluating underserved markets for potential growth.
-           
-        2. **Resource Allocation**: Adjust staffing and resource allocation to align with the temporal patterns identified in 
-           the flight volume analysis.
-           
-        3. **International Expansion**: Based on the domestic vs. international analysis, evaluate opportunities for expanding 
-           international connections to underserved regions.
-           
-        4. **Airline Collaboration**: Work with dominant carriers to ensure service quality, while encouraging healthy 
-           competition to improve options for travelers.
-        """)
 
 # Problem 2: University Dashboard
 elif page == "Problem 2: University Dashboard":
